@@ -69,6 +69,13 @@ class BackupExport {
         await SharePlus.instance.share(ShareParams(
           files: [XFile(path)],
         ));
+      } else if (Platform.isWindows || Platform.isLinux) {
+        final directory = await getApplicationDocumentsDirectory();
+        final path = '${directory.path}/$fileName';
+
+        File(path).writeAsBytesSync(
+          File(tmpBackupPath).readAsBytesSync(),
+        );
       }
 
       BackupGeneral.showInfoSnackbar(LocaleKeys.backup_successfull.tr());
