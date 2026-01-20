@@ -137,3 +137,33 @@ jobs:
       with:
         name: linux-appbundle
         path: build/linux/x64/debug/bundle/
+  
+  windows_build:
+    name: Windows archive
+    runs-on: windows-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ env.VERSION }}
+        cache: true
+
+    - name: Configure Flutter
+      run: |
+        flutter config --no-analytics
+        flutter config --enable-windows-desktop
+
+    - name: Get Flutter packages
+      run: flutter pub get
+
+    - name: Build Linux
+      run: flutter build --verbose windows --debug
+
+    - name: Store artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-archive
+        path: build/windows/x64/runner/Debug/
