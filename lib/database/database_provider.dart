@@ -22,9 +22,10 @@ class DatabaseProvider {
   Future<Database> createDatabase() async {
     Directory docDirectory;
     if (Platform.isWindows) {
-        docDirectory = Directory("${Platform.environment['USERPROFILE']}/openreads");
+      docDirectory =
+          Directory("${Platform.environment['USERPROFILE']}/openreads");
     } else {
-        docDirectory = Directory('${dataHome.path}/openreads');
+      docDirectory = Directory('${dataHome.path}/openreads');
     }
 
     if (Platform.isAndroid || Platform.isIOS) {

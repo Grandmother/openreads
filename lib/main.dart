@@ -60,7 +60,8 @@ void main() async {
   _setAndroidConfig();
 
   if (Platform.isWindows) {
-    appDocumentsDirectory = Directory("${Platform.environment['USERPROFILE']}/openreads");
+    appDocumentsDirectory =
+        Directory("${Platform.environment['USERPROFILE']}/openreads");
   } else {
     appDocumentsDirectory = Directory('${dataHome.path}/openreads');
   }

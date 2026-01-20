@@ -71,9 +71,9 @@ class CSVExport {
         final directory = await getApplicationDocumentsDirectory();
 
         String? path = await FilePicker.platform.saveFile(
-            dialogTitle: 'Please select an output file:',
-            initialDirectory: directory.path,
-            fileName: fileName,
+          dialogTitle: 'Please select an output file:',
+          initialDirectory: directory.path,
+          fileName: fileName,
         );
 
         File(path!).writeAsBytesSync(csv);
