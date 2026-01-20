@@ -20,7 +20,13 @@ class DatabaseProvider {
   late final Future<Database> db = createDatabase();
 
   Future<Database> createDatabase() async {
-    Directory docDirectory = Directory('${dataHome.path}/openreads');
+    Directory docDirectory;
+    if (Platform.isWindows) {
+        docDirectory = Directory("${Platform.environment['USERPROFILE']}/openreads");
+    } else {
+        docDirectory = Directory('${dataHome.path}/openreads');
+    }
+
     if (Platform.isAndroid || Platform.isIOS) {
       docDirectory = await getApplicationDocumentsDirectory();
     }
