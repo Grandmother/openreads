@@ -62,7 +62,8 @@ void main() async {
   if (Platform.isWindows) {
     appDocumentsDirectory =
         Directory("${Platform.environment['USERPROFILE']}/openreads");
-  } else {
+  }
+  if (Platform.isLinux) {
     appDocumentsDirectory = Directory('${dataHome.path}/openreads');
   }
   if (Platform.isAndroid || Platform.isIOS) {

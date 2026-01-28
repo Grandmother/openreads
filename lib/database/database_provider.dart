@@ -24,11 +24,9 @@ class DatabaseProvider {
     if (Platform.isWindows) {
       docDirectory =
           Directory("${Platform.environment['USERPROFILE']}/openreads");
-    } else {
+    } else if (Platform.isLinux) {
       docDirectory = Directory('${dataHome.path}/openreads');
-    }
-
-    if (Platform.isAndroid || Platform.isIOS) {
+    } else {
       docDirectory = await getApplicationDocumentsDirectory();
     }
 
