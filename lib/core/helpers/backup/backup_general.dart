@@ -146,7 +146,7 @@ class BackupGeneral {
       }
 
       return await safStream.readFileBytes(pickedFile.uri);
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         withData: true,
       );

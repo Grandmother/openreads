@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:blurhash/blurhash.dart' as blurhash;
+import 'package:blurhash_dart/blurhash_dart.dart' as blurhash_dart;
 import 'package:blurhash_ffi/blurhash_ffi.dart' as blurhash_ffi;
+import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:openreads/core/constants/constants.dart';
 import 'package:openreads/generated/locale_keys.g.dart';
@@ -24,6 +26,15 @@ Future generateBlurHash(Uint8List bytes, BuildContext context) async {
       componentX: Constants.blurHashX,
       componentY: Constants.blurHashY,
     );
+  } else if (Platform.isWindows) {
+    // There are 3 different blurhash libraries installed here. 2 of which do not work
+    // (blurhash & blurhash_ffi) - use blurhash_dart
+    final imageProvider = img.decodeImage(bytes);
+    blurHashStringTmp = await blurhash_dart.BlurHash.encode(
+      imageProvider!,
+      numCompX: Constants.blurHashX,
+      numCompY: Constants.blurHashY,
+    ).hash;
   } else if (Platform.isAndroid || Platform.isIOS) {
     // blurhash.encode expects bytes and dimensions
     blurHashStringTmp = await blurhash.BlurHash.encode(

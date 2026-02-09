@@ -51,7 +51,7 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await BackupExport.createLocalBackup(context);
       }
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       await BackupExport.createLocalBackup(context);
     } else {
       BackupGeneral.showInfoSnackbar(
@@ -72,7 +72,7 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await CSVExport.exportCSV();
       }
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       await CSVExport.exportCSV();
     } else {
       BackupGeneral.showInfoSnackbar(
@@ -93,7 +93,7 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await CSVImportGoodreads.importCSV(context);
       }
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       await CSVImportGoodreads.importCSV(context);
     } else {
       BackupGeneral.showInfoSnackbar(
@@ -114,7 +114,7 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await CSVImportBookwyrm.importCSV(context);
       }
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       await CSVImportBookwyrm.importCSV(context);
     } else {
       BackupGeneral.showInfoSnackbar(
@@ -135,7 +135,7 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await CSVImportOpenreads.importCSV(context);
       }
-    } else if (Platform.isIOS) {
+    } else if (Platform.isIOS || Platform.isWindows || Platform.isLinux) {
       await CSVImportOpenreads.importCSV(context);
     } else {
       BackupGeneral.showInfoSnackbar(

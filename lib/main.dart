@@ -59,7 +59,13 @@ void main() async {
 
   _setAndroidConfig();
 
-  appDocumentsDirectory = Directory('${dataHome.path}/openreads');
+  if (Platform.isWindows) {
+    appDocumentsDirectory =
+        Directory("${Platform.environment['USERPROFILE']}/openreads");
+  }
+  if (Platform.isLinux) {
+    appDocumentsDirectory = Directory('${dataHome.path}/openreads');
+  }
   if (Platform.isAndroid || Platform.isIOS) {
     appDocumentsDirectory = await getApplicationDocumentsDirectory();
   }
