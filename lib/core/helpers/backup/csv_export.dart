@@ -57,15 +57,17 @@ class CSVExport {
           'text/csv',
           csv,
         );
-      } else if (Platform.isIOS) {
+      } else {
         final directory = await getApplicationDocumentsDirectory();
         final path = '${directory.path}/$fileName';
 
         File(path).writeAsBytesSync(csv);
 
-        await SharePlus.instance.share(ShareParams(
-          files: [XFile(path)],
-        ));
+        if (Platform.isIOS) {
+          await SharePlus.instance.share(ShareParams(
+            files: [XFile(path)],
+          ));
+        }
       }
 
       BackupGeneral.showInfoSnackbar(LocaleKeys.export_successful.tr());

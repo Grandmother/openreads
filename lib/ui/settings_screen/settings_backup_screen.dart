@@ -72,12 +72,8 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
       } else {
         await CSVExport.exportCSV();
       }
-    } else if (Platform.isIOS) {
-      await CSVExport.exportCSV();
     } else {
-      BackupGeneral.showInfoSnackbar(
-        LocaleKeys.action_not_supported_on_platform_error.tr(),
-      );
+      await CSVExport.exportCSV();
     }
 
     setState(() => _exportingCSV = false);
@@ -503,30 +499,21 @@ class _SettingsBackupScreenState extends State<SettingsBackupScreen> {
 
   SettingsTile _buildExportAsCSV() {
     return SettingsTile(
-      title: Opacity(
-        opacity: (Platform.isAndroid || Platform.isIOS) ? 1.0 : 0.5,
-        child: Text(
-          LocaleKeys.export_csv.tr(),
-          style: const TextStyle(
-            fontSize: 16,
-          ),
+      title: Text(
+        LocaleKeys.export_csv.tr(),
+        style: const TextStyle(
+          fontSize: 16,
         ),
       ),
-      leading: Opacity(
-        opacity: (Platform.isAndroid || Platform.isIOS) ? 1.0 : 0.5,
-        child: (_exportingCSV)
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(),
-              )
-            : const Icon(FontAwesomeIcons.fileCsv),
-      ),
-      description: Opacity(
-        opacity: (Platform.isAndroid || Platform.isIOS) ? 1.0 : 0.5,
-        child: Text(
-          LocaleKeys.export_csv_description_1.tr(),
-        ),
+      leading: (_exportingCSV)
+          ? const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(),
+            )
+          : const Icon(FontAwesomeIcons.fileCsv),
+      description: Text(
+        LocaleKeys.export_csv_description_1.tr(),
       ),
       onPressed: _startExportingCSV,
     );
